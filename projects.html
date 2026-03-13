@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Benedick Llanda</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f2ede6;--ink:#0f0e0c;--warm:#e8e0d4;
+  --accent:#c94a1f;--accent2:#1a3a5c;
+  --muted:#7a7168;--rule:#d4ccc0;--white:#fff;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+
+#cur{width:10px;height:10px;background:var(--ink);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s;}
+#cur-ring{width:38px;height:38px;border:1.5px solid rgba(15,14,12,0.3);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between;background:rgba(242,237,230,0.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--rule);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-back{font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;}
+
+/* HERO */
+#hero{
+  padding:140px 72px 80px;
+  background:var(--ink);color:white;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;bottom:-40px;right:-20px;
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(120px,18vw,260px);
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.05);
+  line-height:1;pointer-events:none;user-select:none;
+}
+.hero-label{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;opacity:0;transform:translateY(14px);animation:up .8s .1s cubic-bezier(.16,1,.3,1) forwards;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(48px,7vw,96px);line-height:1;letter-spacing:-.03em;opacity:0;transform:translateY(22px);animation:up 1s .22s cubic-bezier(.16,1,.3,1) forwards;}
+.hero-title em{font-style:italic;color:var(--accent);}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,0.5);max-width:520px;margin-top:20px;line-height:1.65;opacity:0;transform:translateY(18px);animation:up .9s .36s cubic-bezier(.16,1,.3,1) forwards;}
+
+/* FILTER TABS */
+.filter-bar{padding:0 72px;background:var(--bg);border-bottom:1px solid var(--rule);display:flex;gap:0;overflow-x:auto;}
+.f-tab{padding:18px 24px;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:none;font-family:inherit;transition:color .2s,border-color .2s;white-space:nowrap;}
+.f-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.f-tab:hover{color:var(--ink);}
+
+/* PROJECTS GRID */
+.proj-section{padding:80px 72px 120px;}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;}
+
+.proj-item{
+  background:var(--white);border:1px solid var(--rule);border-radius:20px;
+  overflow:hidden;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s;
+  cursor:none;
+}
+.proj-item:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.1);}
+.proj-item.featured{grid-column:span 2;}
+
+.proj-visual{
+  height:220px;display:flex;align-items:center;justify-content:center;
+  font-size:64px;position:relative;overflow:hidden;
+}
+.proj-item.featured .proj-visual{height:300px;}
+.v1{background:linear-gradient(135deg,#0d1b3e,#1a3a5c);}
+.v2{background:linear-gradient(135deg,#2a1510,#c94a1f22);}
+.v3{background:linear-gradient(135deg,#0d2020,#11534e);}
+.v4{background:linear-gradient(135deg,#1a1a2e,#2d2d5e);}
+.v5{background:linear-gradient(135deg,#1a0a0a,#3d1515);}
+
+.proj-body{padding:32px;}
+.proj-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.proj-tag{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:rgba(201,74,31,.08);border-radius:4px;padding:4px 10px;}
+.proj-year{font-size:11px;color:var(--muted);}
+.proj-name{font-family:'DM Serif Display',serif;font-size:26px;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px;}
+.proj-item.featured .proj-name{font-size:34px;}
+.proj-desc{font-size:14px;color:var(--muted);line-height:1.7;}
+.proj-stats{display:flex;gap:24px;margin-top:24px;padding-top:24px;border-top:1px solid var(--rule);}
+.p-stat .p-n{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ink);line-height:1;}
+.p-stat .p-l{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;}
+
+/* ALL HIDDEN BY FILTER */
+.proj-item[data-cat].hidden{display:none;}
+
+/* CONTACT CTA */
+.cta-band{background:var(--ink);padding:100px 72px;text-align:center;color:white;}
+.cta-headline{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,64px);line-height:1.05;letter-spacing:-.03em;}
+.cta-headline em{font-style:italic;color:var(--accent);}
+.cta-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.5);max-width:420px;margin:18px auto 0;line-height:1.6;}
+.cta-actions{display:flex;gap:14px;justify-content:center;margin-top:40px;}
+.btn-solid{background:var(--accent);color:white;border:none;border-radius:2px;padding:14px 28px;font-size:14px;font-weight:500;letter-spacing:.04em;font-family:inherit;cursor:none;text-decoration:none;transition:background .2s,transform .15s;}
+.btn-solid:hover{background:#b03e16;transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);border-radius:2px;padding:14px 28px;font-size:14px;font-weight:500;letter-spacing:.04em;font-family:inherit;cursor:none;text-decoration:none;transition:all .2s;}
+.btn-ghost:hover{color:white;border-color:white;}
+
+footer{background:var(--ink);color:rgba(255,255,255,.3);padding:32px 72px;display:flex;justify-content:space-between;font-size:12px;}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.rv.on{opacity:1;transform:none;}
+.d1{transition-delay:.08s}.d2{transition-delay:.18s}.d3{transition-delay:.28s}.d4{transition-delay:.38s}
+
+@keyframes up{to{opacity:1;transform:translateY(0);}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+@media(max-width:900px){
+  #hero,.proj-section,.cta-band,footer{padding-left:24px;padding-right:24px;}
+  .filter-bar{padding:0 24px;}
+  .proj-grid{grid-template-columns:1fr;}
+  .proj-item.featured{grid-column:span 1;}
+  nav{padding:0 24px;}
+  .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">BL</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Home</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg">WORK</div>
+  <div class="hero-label">Selected Projects</div>
+  <h1 class="hero-title">Work that<br><em>moved the needle.</em></h1>
+  <p class="hero-sub">9 years of product delivery at AT&T. These are the initiatives that left a mark.</p>
+</section>
+
+<div class="filter-bar">
+  <button class="f-tab active" data-filter="all">All</button>
+  <button class="f-tab" data-filter="product">Product Strategy</button>
+  <button class="f-tab" data-filter="program">Program Management</button>
+  <button class="f-tab" data-filter="software">Software Delivery</button>
+  <button class="f-tab" data-filter="engineering">Engineering</button>
+</div>
+
+<div class="proj-section">
+  <div class="proj-grid" id="projGrid">
+
+    <div class="proj-item featured rv d1" data-cat="product">
+      <div class="proj-visual v1">📡</div>
+      <div class="proj-body">
+        <div class="proj-meta"><span class="proj-tag">Product Strategy</span><span class="proj-year">AT&T · 2021–2024</span></div>
+        <div class="proj-name">WiFi 6 & WiFi 7 Hardware Launch</div>
+        <div class="proj-desc">Led end-to-end delivery of next-generation WiFi hardware from early concept through retail market launch. Scope covered design coordination, cost modeling, vendor management, launch readiness, and post-launch performance analysis across multiple product lines. Built the multi-year roadmap for cloud-assisted features and kept engineering, marketing, and sales aligned throughout.</div>
+        <div class="proj-stats">
+          <div class="p-stat"><div class="p-n">30%</div><div class="p-l">Network stability improvement</div></div>
+          <div class="p-stat"><div class="p-n">15%</div><div class="p-l">Connectivity performance lift</div></div>
+          <div class="p-stat"><div class="p-n">WiFi 7</div><div class="p-l">First-to-market hardware</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-item rv d2" data-cat="program">
+      <div class="proj-visual v2">💾</div>
+      <div class="proj-body">
+        <div class="proj-meta"><span class="proj-tag">Program Management</span><span class="proj-year">AT&T · 2019–2020</span></div>
+        <div class="proj-name">$79M Firmware Modernization</div>
+        <div class="proj-desc">Led integration and delivery of firmware upgrades across AT&T's full fleet of residential gateways and extenders. Coordinated cross-functional delivery across engineering, ops, and vendor teams to hit deployment windows that unlocked $79M in annual savings.</div>
+        <div class="proj-stats">
+          <div class="p-stat"><div class="p-n">$79M</div><div class="p-l">Annual savings</div></div>
+          <div class="p-stat"><div class="p-n">10%</div><div class="p-l">Faster issue resolution</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-item rv d3" data-cat="software">
+      <div class="proj-visual v3">⚡</div>
+      <div class="proj-body">
+        <div class="proj-meta"><span class="proj-tag">Software Delivery</span><span class="proj-year">AT&T · 2022</span></div>
+        <div class="proj-name">WiFi Optimization Solution</div>
+        <div class="proj-desc">Built and launched a cloud-assisted WiFi optimization solution. Evaluated emerging technologies, validated feasibility with engineering partners, and guided implementation through to production. Delivered measurable network and customer experience improvements at scale.</div>
+        <div class="proj-stats">
+          <div class="p-stat"><div class="p-n">30%</div><div class="p-l">Network stability</div></div>
+          <div class="p-stat"><div class="p-n">15%</div><div class="p-l">Performance increase</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-item rv d1" data-cat="software">
+      <div class="proj-visual v4">🔧</div>
+      <div class="proj-body">
+        <div class="proj-meta"><span class="proj-tag">Software Delivery</span><span class="proj-year">AT&T · 2018</span></div>
+        <div class="proj-name">Automated Speed Test Workflows</div>
+        <div class="proj-desc">Implemented automated speed testing within AT&T's customer troubleshooting workflows, reducing the average time to issue resolution by 10%. Worked directly with customer operations teams to validate and refine the solution before full rollout.</div>
+        <div class="proj-stats">
+          <div class="p-stat"><div class="p-n">10%</div><div class="p-l">Faster resolution time</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-item rv d2" data-cat="engineering">
+      <div class="proj-visual v5">🌐</div>
+      <div class="proj-body">
+        <div class="proj-meta"><span class="proj-tag">Engineering</span><span class="proj-year">AT&T · 2015–2017</span></div>
+        <div class="proj-name">Fiber Network Expansion Planning</div>
+        <div class="proj-desc">Delivered fiber capacity expansion plans that supported AT&T network growth across the outside plant infrastructure. Coordinated capital project execution within strict timelines and produced network designs that reduced deployment costs while improving service reliability in target markets.</div>
+        <div class="proj-stats">
+          <div class="p-stat"><div class="p-n">On Time</div><div class="p-l">Capital project delivery</div></div>
+          <div class="p-stat"><div class="p-n">Lower</div><div class="p-l">Deployment costs</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="cta-band">
+  <h2 class="cta-headline rv">Interested in<br>working <em>together?</em></h2>
+  <p class="cta-sub rv">Let's talk about what you're building and where I might fit in.</p>
+  <div class="cta-actions rv">
+    <a href="mailto:LLB.LLC.2019@GMAIL.COM" class="btn-solid">Send an Email</a>
+    <a href="resume.html" class="btn-ghost">View Resume</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Benedick Llanda</span>
+  <span>Port Orchard, WA</span>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,.proj-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='38px';ring.style.height='38px';});
+});
+
+// FILTER
+document.querySelectorAll('.f-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.f-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const f=tab.dataset.filter;
+    document.querySelectorAll('.proj-item[data-cat]').forEach(item=>{
+      if(f==='all'||item.dataset.cat===f){ item.classList.remove('hidden'); }
+      else { item.classList.add('hidden'); }
+    });
+  });
+});
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

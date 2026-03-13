@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certifications — Benedick Llanda</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f2ede6;
+  --ink: #0f0e0c;
+  --warm: #e8e0d4;
+  --accent: #c94a1f;
+  --accent2: #1a3a5c;
+  --muted: #7a7168;
+  --rule: #d4ccc0;
+  --white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+#cur { width:10px; height:10px; background:var(--ink); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .2s,height .2s; }
+#cur-ring { width:38px; height:38px; border:1.5px solid rgba(15,14,12,0.35); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  padding: 0 48px; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(242,237,230,0.85);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-logo { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:.06em; color:var(--ink); text-decoration:none; }
+.nav-links { display:flex; gap:36px; list-style:none; }
+.nav-links a { font-size:13px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+.nav-links a:hover { color:var(--ink); }
+.nav-back { font-size:13px; font-weight:500; color:var(--accent); text-decoration:none; letter-spacing:.04em; }
+.nav-back:hover { color:#b03e16; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 52vh;
+  padding: 140px 72px 80px;
+  background: var(--ink);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.hero-bg-text {
+  position: absolute; top: 0; right: -20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(140px, 20vw, 260px);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.05);
+  line-height: 1; pointer-events: none; user-select: none;
+}
+.hero-label {
+  font-size:12px; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:18px;
+  opacity:0; transform:translateY(14px);
+  animation: up .8s .1s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-title {
+  font-family:'DM Serif Display',serif;
+  font-size: clamp(44px, 6.5vw, 88px); line-height:1; letter-spacing:-.03em;
+  opacity:0; transform:translateY(22px);
+  animation: up 1s .22s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-title em { font-style:italic; color:var(--accent); }
+.hero-sub {
+  font-size:17px; font-weight:300; color:rgba(255,255,255,0.45);
+  max-width:500px; margin-top:18px; line-height:1.65;
+  opacity:0; transform:translateY(18px);
+  animation: up .9s .36s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 72px;
+  display: flex; gap: 0;
+}
+.stat-item {
+  padding: 28px 48px 28px 0;
+  border-right: 1px solid var(--rule);
+  margin-right: 48px;
+}
+.stat-item:last-child { border-right: none; }
+.stat-n { font-family:'Bebas Neue',sans-serif; font-size:40px; line-height:1; color:var(--ink); }
+.stat-l { font-size:11px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+
+/* ── FILTER TABS ── */
+.filter-bar {
+  padding: 0 72px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  display: flex; gap: 0; overflow-x: auto;
+}
+.f-tab {
+  padding: 18px 24px; font-size:13px; font-weight:500; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); background:none; border:none; border-bottom:2px solid transparent;
+  cursor:none; font-family:inherit; transition:color .2s, border-color .2s; white-space:nowrap;
+}
+.f-tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+.f-tab:hover { color:var(--ink); }
+
+/* ── MAIN BODY ── */
+.cert-body { padding: 80px 72px 120px; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size:11px; font-weight:500; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--accent); display:flex; align-items:center; gap:12px; margin-bottom:40px;
+}
+.section-label::after { content:''; flex:1; height:1px; background:var(--rule); }
+
+/* ── CERT GRID ── */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+/* ── CERT CARD ── */
+.cert-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 36px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 280px;
+  position: relative; overflow: hidden;
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .3s;
+  cursor: none;
+}
+.cert-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.09); border-color: var(--rule); }
+.cert-card.earned { border-left: 3px solid var(--accent); }
+.cert-card.placeholder { border: 1px dashed var(--rule); background: rgba(242,237,230,0.4); }
+.cert-card.placeholder:hover { border-color: var(--muted); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.05); }
+
+/* card top */
+.cert-top { display:flex; justify-content:space-between; align-items:flex-start; }
+.cert-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+}
+.cert-icon.ai   { background: linear-gradient(135deg,#e8f0fe,#c5d8fd); }
+.cert-icon.ux   { background: linear-gradient(135deg,#fde8e0,#fcc5b0); }
+.cert-icon.eng  { background: linear-gradient(135deg,#e8f5e9,#c5e8c8); }
+.cert-icon.pm   { background: linear-gradient(135deg,#f3e8fe,#ddb0fc); }
+.cert-icon.data { background: linear-gradient(135deg,#fff8e1,#ffe082); }
+.cert-icon.empty { background: var(--warm); }
+
+.cert-status {
+  font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+  padding: 5px 10px; border-radius: 980px;
+}
+.cert-status.earned-badge { background: rgba(201,74,31,.1); color: var(--accent); }
+.cert-status.in-progress  { background: rgba(26,58,92,.1);  color: var(--accent2); }
+.cert-status.planned      { background: var(--warm); color: var(--muted); }
+.cert-status.open         { background: var(--warm); color: var(--muted); }
+
+/* card body */
+.cert-mid { margin-top: 28px; flex:1; }
+.cert-name { font-family:'DM Serif Display',serif; font-size:20px; letter-spacing:-.02em; line-height:1.2; margin-bottom:8px; }
+.cert-issuer { font-size:13px; font-weight:500; color:var(--accent); }
+.cert-date { font-size:12px; color:var(--muted); margin-top:4px; }
+.cert-desc { font-size:13px; color:var(--muted); line-height:1.6; margin-top:12px; }
+
+/* card footer */
+.cert-foot { margin-top:24px; padding-top:20px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:center; }
+.cert-id { font-size:11px; color:var(--muted); font-family:'DM Sans',sans-serif; }
+.cert-arrow {
+  width: 32px; height: 32px; border: 1px solid var(--rule); border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:15px; color:var(--muted);
+  transition: background .2s, border-color .2s, color .2s, transform .2s;
+}
+.cert-card:hover .cert-arrow { background:var(--accent); border-color:var(--accent); color:white; transform:rotate(45deg); }
+.cert-card.placeholder .cert-arrow { opacity:0.4; }
+
+/* placeholder specific */
+.cert-card.placeholder .cert-name { color:var(--muted); font-style:italic; }
+.cert-card.placeholder .cert-issuer { color:var(--rule); }
+
+/* ── IN PROGRESS SECTION ── */
+.progress-list { display:flex; flex-direction:column; gap:0; margin-bottom:80px; }
+.progress-row {
+  display:grid; grid-template-columns: 52px 1fr auto;
+  gap:20px; align-items:center;
+  padding:24px 0; border-bottom:1px solid var(--rule);
+}
+.progress-row:first-child { border-top:1px solid var(--rule); }
+.pr-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; }
+.pr-info { }
+.pr-name { font-family:'DM Serif Display',serif; font-size:18px; letter-spacing:-.01em; }
+.pr-issuer { font-size:13px; color:var(--accent); margin-top:3px; }
+.pr-eta { font-size:12px; color:var(--muted); margin-top:2px; }
+.pr-bar-wrap { min-width:160px; }
+.pr-bar-label { font-size:11px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px; display:flex; justify-content:space-between; }
+.pr-bar-track { height:4px; background:var(--rule); border-radius:2px; overflow:hidden; }
+.pr-bar-fill { height:100%; background:var(--accent); border-radius:2px; transition:width 1.2s cubic-bezier(.16,1,.3,1); width:0; }
+.pr-bar-fill.animate { width:var(--pct); }
+
+/* ── HIDDEN BY FILTER ── */
+.cert-card[data-cat].hidden { display:none; }
+
+/* ── EDUCATION NOTE ── */
+.edu-note {
+  background:var(--warm); border:1px solid var(--rule); border-radius:16px;
+  padding:32px 36px; display:flex; gap:20px; align-items:flex-start;
+}
+.edu-note-icon { font-size:28px; flex-shrink:0; margin-top:2px; }
+.edu-note-title { font-family:'DM Serif Display',serif; font-size:20px; letter-spacing:-.01em; margin-bottom:6px; }
+.edu-note-body { font-size:14px; color:var(--muted); line-height:1.7; }
+.edu-note-body p + p { margin-top:8px; }
+
+/* ── CTA ── */
+.cta-band { background:var(--ink); padding:100px 72px; text-align:center; color:white; }
+.cta-headline { font-family:'DM Serif Display',serif; font-size:clamp(36px,5vw,64px); line-height:1.05; letter-spacing:-.03em; }
+.cta-headline em { font-style:italic; color:var(--accent); }
+.cta-sub { font-size:17px; font-weight:300; color:rgba(255,255,255,.5); max-width:420px; margin:18px auto 0; line-height:1.6; }
+.cta-actions { display:flex; gap:14px; justify-content:center; margin-top:40px; }
+.btn-solid { background:var(--accent); color:white; border:none; border-radius:2px; padding:14px 28px; font-size:14px; font-weight:500; letter-spacing:.04em; font-family:inherit; cursor:none; text-decoration:none; transition:background .2s,transform .15s; }
+.btn-solid:hover { background:#b03e16; transform:translateY(-2px); }
+.btn-ghost { background:transparent; color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.2); border-radius:2px; padding:14px 28px; font-size:14px; font-weight:500; letter-spacing:.04em; font-family:inherit; cursor:none; text-decoration:none; transition:all .2s; }
+.btn-ghost:hover { color:white; border-color:white; }
+
+/* ── FOOTER ── */
+footer { background:var(--ink); color:rgba(255,255,255,.3); padding:32px 72px; display:flex; justify-content:space-between; font-size:12px; }
+
+/* ── REVEAL ── */
+.rv { opacity:0; transform:translateY(32px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+.rvl { opacity:0; transform:translateX(-32px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+.rv.on,.rvl.on { opacity:1; transform:none; }
+.d1{transition-delay:.08s} .d2{transition-delay:.18s} .d3{transition-delay:.28s}
+.d4{transition-delay:.38s} .d5{transition-delay:.48s} .d6{transition-delay:.58s}
+
+/* ── KEYFRAMES ── */
+@keyframes up { to { opacity:1; transform:translateY(0); } }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px) { .cert-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:768px) {
+  #hero, .cert-body, .cta-band, footer { padding-left:24px; padding-right:24px; }
+  .stats-bar, .filter-bar { padding-left:24px; padding-right:24px; }
+  .cert-grid { grid-template-columns: 1fr; }
+  nav { padding:0 24px; }
+  .nav-links { display:none; }
+  .progress-row { grid-template-columns: 40px 1fr; }
+  .pr-bar-wrap { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">BL</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Home</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">CERTS</div>
+  <div class="hero-label">Credentials & Certifications</div>
+  <h1 class="hero-title">Always learning.<br><em>Always building.</em></h1>
+  <p class="hero-sub">A career built on staying ahead of what's next — from fiber engineering to generative AI.</p>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-n">3</div>
+    <div class="stat-l">Earned</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n">2</div>
+    <div class="stat-l">In Progress</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-n">3</div>
+    <div class="stat-l">Planned</div>
+  </div>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-bar">
+  <button class="f-tab active" data-filter="all">All</button>
+  <button class="f-tab" data-filter="ai">AI & Data</button>
+  <button class="f-tab" data-filter="product">Product & UX</button>
+  <button class="f-tab" data-filter="management">Management</button>
+  <button class="f-tab" data-filter="engineering">Engineering</button>
+</div>
+
+<!-- BODY -->
+<div class="cert-body">
+
+  <!-- EARNED -->
+  <div class="section-label rv">Earned Credentials</div>
+  <div class="cert-grid">
+
+    <!-- Generative AI -->
+    <div class="cert-card earned rv d1" data-cat="ai">
+      <div class="cert-top">
+        <div class="cert-icon ai">🤖</div>
+        <span class="cert-status earned-badge">Earned</span>
+      </div>
+      <div class="cert-mid">
+        <div class="cert-name">Generative AI</div>
+        <div class="cert-issuer">Coursera</div>
+        <div class="cert-date">Summer 2024</div>
+        <div class="cert-desc">Foundations of generative AI — large language models, prompt engineering, and practical applications in a product and business context.</div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-id">Self-directed · 2024</span>
+        <div class="cert-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- UX Design -->
+    <div class="cert-card earned rv d2" data-cat="product">
+      <div class="cert-top">
+        <div class="cert-icon ux">🎨</div>
+        <span class="cert-status earned-badge">Earned</span>
+      </div>
+      <div class="cert-mid">
+        <div class="cert-name">User Experience Design</div>
+        <div class="cert-issuer">Udacity — AT&T Program</div>
+        <div class="cert-date">Spring 2021</div>
+        <div class="cert-desc">UX research methods, wireframing, usability testing, and user-centered design principles applied to real product challenges.</div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-id">AT&T Sponsored · 2021</span>
+        <div class="cert-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- Engineering -->
+    <div class="cert-card earned rv d3" data-cat="engineering">
+      <div class="cert-top">
+        <div class="cert-icon eng">⚡</div>
+        <span class="cert-status earned-badge">Earned</span>
+      </div>
+      <div class="cert-mid">
+        <div class="cert-name">Electrical Engineering & Engineering Management</div>
+        <div class="cert-issuer">Old Dominion University</div>
+        <div class="cert-date">Fall 2016</div>
+        <div class="cert-desc">Formal education spanning electrical systems and engineering management — the foundation for a decade of technical product and infrastructure work.</div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-id">Old Dominion · 2016</span>
+        <div class="cert-arrow">→</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- IN PROGRESS -->
+  <div class="section-label rv">In Progress</div>
+  <div class="progress-list">
+
+    <div class="progress-row rv d1" data-cat="product">
+      <div class="pr-icon" style="background:linear-gradient(135deg,#fde8e0,#fcc5b0)">📋</div>
+      <div class="pr-info">
+        <div class="pr-name">Certification Name</div>
+        <div class="pr-issuer">Issuing Organization</div>
+        <div class="pr-eta">Expected completion: [Date]</div>
+      </div>
+      <div class="pr-bar-wrap">
+        <div class="pr-bar-label"><span>Progress</span><span>—%</span></div>
+        <div class="pr-bar-track"><div class="pr-bar-fill" style="--pct:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="progress-row rv d2" data-cat="ai">
+      <div class="pr-icon" style="background:linear-gradient(135deg,#e8f0fe,#c5d8fd)">🧠</div>
+      <div class="pr-info">
+        <div class="pr-name">Certification Name</div>
+        <div class="pr-issuer">Issuing Organization</div>
+        <div class="pr-eta">Expected completion: [Date]</div>
+      </div>
+      <div class="pr-bar-wrap">
+        <div class="pr-bar-label"><span>Progress</span><span>—%</span></div>
+        <div class="pr-bar-track"><div class="pr-bar-fill" style="--pct:0%"></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PLANNED -->
+  <div class="section-label rv">Planned</div>
+  <div class="cert-grid">
+
+    <div class="cert-card placeholder rv d1" data-cat="management">
+      <div class="cert-top">
+        <div class="cert-icon empty">📌</div>
+        <span class="cert-status planned">Planned</span>
+      </div>
+      <div class="cert-mid">
+        <div class="cert-name">Certification Name</div>
+        <div class="cert-issuer">Issuing Organization</div>
+        <div class="cert-date">Target: [Year]</div>
+        <div class="cert-desc">Add a short description of what this certification covers and why you're pursuing it.</div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-id">Category · Year</span>
+        <div class="cert-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="cert-card placeholder rv d2" data-cat="ai">
+      <div class="cert-top">
+        <div class="cert-icon empty">📌</div>
+        <span class="cert-status planned">Planned</span>
+      </div>
+      <div class="cert-mid">
+        <div class="cert-name">Certification Name</div>
+        <div class="cert-issuer">Issuing Organization</div>
+        <div class="cert-date">Target: [Year]</div>
+        <div class="cert-desc">Add a short description of what this certification covers and why you're pursuing it.</div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-id">Category · Year</span>
+        <div class="cert-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="cert-card placeholder rv d3" data-cat="product">
+      <div class="cert-top">
+        <div class="cert-icon empty">📌</div>
+        <span class="cert-status planned">Planned</span>
+      </div>
+      <div class="cert-mid">
+        <div class="cert-name">Certification Name</div>
+        <div class="cert-issuer">Issuing Organization</div>
+        <div class="cert-date">Target: [Year]</div>
+        <div class="cert-desc">Add a short description of what this certification covers and why you're pursuing it.</div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-id">Category · Year</span>
+        <div class="cert-arrow">→</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EDUCATION NOTE -->
+  <div class="edu-note rv">
+    <div class="edu-note-icon">💡</div>
+    <div>
+      <div class="edu-note-title">Continuous learning as a practice</div>
+      <div class="edu-note-body">
+        <p>My approach to learning has always been tied to the work in front of me. The UX certification came out of a need to speak more fluently with design teams. Generative AI came out of curiosity about where product development is heading and a desire to stay ahead of it.</p>
+        <p>The credentials listed here reflect that pattern — each one connects to something I was working on or building toward at the time.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2 class="cta-headline rv">Want to know<br>more about <em>my work?</em></h2>
+  <p class="cta-sub rv">Check out my full resume or browse the projects that put these skills into practice.</p>
+  <div class="cta-actions rv">
+    <a href="resume.html" class="btn-solid">View Resume</a>
+    <a href="projects.html" class="btn-ghost">See Projects</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Benedick Llanda</span>
+  <span>Port Orchard, WA &nbsp;·&nbsp; Open to Remote</span>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cur = document.getElementById('cur'), ring = document.getElementById('cur-ring');
+let mx = window.innerWidth/2, my = window.innerHeight/2, rx = mx, ry = my;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function a(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(a); })();
+document.querySelectorAll('a, button, .cert-card, .progress-row').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.width='18px'; cur.style.height='18px'; ring.style.width='50px'; ring.style.height='50px'; });
+  el.addEventListener('mouseleave', () => { cur.style.width='10px'; cur.style.height='10px'; ring.style.width='38px'; ring.style.height='38px'; });
+});
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      // animate progress bars when they come into view
+      e.target.querySelectorAll && e.target.querySelectorAll('.pr-bar-fill').forEach(b => b.classList.add('animate'));
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rv, .rvl').forEach(el => obs.observe(el));
+
+// also trigger bars that are already inside revealed parents
+document.querySelectorAll('.pr-bar-fill').forEach(bar => {
+  const row = bar.closest('.progress-row');
+  if (row) {
+    const rowObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { bar.classList.add('animate'); rowObs.unobserve(e.target); } });
+    }, { threshold: 0.3 });
+    rowObs.observe(row);
+  }
+});
+
+// ── FILTER TABS ──
+document.querySelectorAll('.f-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.f-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const f = tab.dataset.filter;
+    document.querySelectorAll('[data-cat]').forEach(item => {
+      item.classList.toggle('hidden', f !== 'all' && item.dataset.cat !== f);
+    });
+  });
+});
+</script>
+</body>
+</html>
