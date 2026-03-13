@@ -26,17 +26,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:60px;d
 .nav-back{font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;}
 
 /* HERO */
-#hero{
-  padding:140px 72px 80px;
-  background:var(--ink);color:white;
-  position:relative;overflow:hidden;
-}
-.hero-bg{
-  position:absolute;bottom:-40px;right:-20px;
-  font-family:'Bebas Neue',sans-serif;font-size:clamp(120px,18vw,260px);
-  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.05);
-  line-height:1;pointer-events:none;user-select:none;
-}
+#hero{padding:140px 72px 80px;background:var(--ink);color:white;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;bottom:-40px;right:-20px;font-family:'Bebas Neue',sans-serif;font-size:clamp(120px,18vw,260px);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.05);line-height:1;pointer-events:none;user-select:none;}
 .hero-label{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;opacity:0;transform:translateY(14px);animation:up .8s .1s cubic-bezier(.16,1,.3,1) forwards;}
 .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(48px,7vw,96px);line-height:1;letter-spacing:-.03em;opacity:0;transform:translateY(22px);animation:up 1s .22s cubic-bezier(.16,1,.3,1) forwards;}
 .hero-title em{font-style:italic;color:var(--accent);}
@@ -52,40 +43,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:60px;d
 .proj-section{padding:80px 72px 120px;}
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;}
 
+/* KEY FIX: flex column so all cards stretch to full height within their row */
 .proj-item{
   background:var(--white);border:1px solid var(--rule);border-radius:20px;
   overflow:hidden;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s;
-  cursor:none;
+  cursor:none;display:flex;flex-direction:column;
 }
 .proj-item:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.1);}
 .proj-item.featured{grid-column:span 2;}
 
 .proj-visual{
-  height:220px;display:flex;align-items:center;justify-content:center;
-  font-size:64px;position:relative;overflow:hidden;
+  height:220px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:64px;overflow:hidden;
 }
-.proj-item.featured .proj-visual{height:300px;}
+.proj-item.featured .proj-visual{height:260px;}
 .v1{background:linear-gradient(135deg,#0d1b3e,#1a3a5c);}
 .v2{background:linear-gradient(135deg,#2a1510,#c94a1f22);}
 .v3{background:linear-gradient(135deg,#0d2020,#11534e);}
 .v4{background:linear-gradient(135deg,#1a1a2e,#2d2d5e);}
 .v5{background:linear-gradient(135deg,#1a0a0a,#3d1515);}
 
-.proj-body{padding:32px;}
+/* KEY FIX: flex:1 on body pushes stats to bottom consistently */
+.proj-body{padding:32px;display:flex;flex-direction:column;flex:1;}
 .proj-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .proj-tag{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:rgba(201,74,31,.08);border-radius:4px;padding:4px 10px;}
 .proj-year{font-size:11px;color:var(--muted);}
-.proj-name{font-family:'DM Serif Display',serif;font-size:26px;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px;}
-.proj-item.featured .proj-name{font-size:34px;}
-.proj-desc{font-size:14px;color:var(--muted);line-height:1.7;}
-.proj-stats{display:flex;gap:24px;margin-top:24px;padding-top:24px;border-top:1px solid var(--rule);}
+.proj-name{font-family:'DM Serif Display',serif;font-size:24px;letter-spacing:-.02em;line-height:1.2;margin-bottom:12px;}
+.proj-item.featured .proj-name{font-size:30px;}
+/* KEY FIX: flex:1 on desc so stats always sit at bottom */
+.proj-desc{font-size:14px;color:var(--muted);line-height:1.7;flex:1;}
+.proj-stats{display:flex;gap:24px;margin-top:24px;padding-top:24px;border-top:1px solid var(--rule);flex-wrap:wrap;}
 .p-stat .p-n{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ink);line-height:1;}
-.p-stat .p-l{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;}
+.p-stat .p-l{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;max-width:110px;line-height:1.4;}
 
-/* ALL HIDDEN BY FILTER */
+/* HIDDEN BY FILTER */
 .proj-item[data-cat].hidden{display:none;}
 
-/* CONTACT CTA */
+/* CTA */
 .cta-band{background:var(--ink);padding:100px 72px;text-align:center;color:white;}
 .cta-headline{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,64px);line-height:1.05;letter-spacing:-.03em;}
 .cta-headline em{font-style:italic;color:var(--accent);}
@@ -104,7 +98,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.3);padding:32px 72px;displa
 .d1{transition-delay:.08s}.d2{transition-delay:.18s}.d3{transition-delay:.28s}.d4{transition-delay:.38s}
 
 @keyframes up{to{opacity:1;transform:translateY(0);}}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 @media(max-width:900px){
   #hero,.proj-section,.cta-band,footer{padding-left:24px;padding-right:24px;}
@@ -135,7 +128,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.3);padding:32px 72px;displa
   <div class="hero-bg">WORK</div>
   <div class="hero-label">Selected Projects</div>
   <h1 class="hero-title">Work that<br><em>moved the needle.</em></h1>
-  <p class="hero-sub">9 years of product delivery at AT&T. These are the initiatives that left a mark.</p>
+  <p class="hero-sub">9 years of product delivery at AT&T — plus the projects I've built on my own time.</p>
 </section>
 
 <div class="filter-bar">
@@ -150,12 +143,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.3);padding:32px 72px;displa
 <div class="proj-section">
   <div class="proj-grid" id="projGrid">
 
-    <div class="proj-item rv d4" data-cat="individual">
-      <div class="proj-visual" style="background: linear-gradient(135deg, #2a1f14, #c94a1f33);">🌐</div>
+    <!-- INDIVIDUAL -->
+
+    <div class="proj-item rv d1" data-cat="individual">
+      <div class="proj-visual" style="background:linear-gradient(135deg,#2a1f14,#c94a1f33);">🌐</div>
       <div class="proj-body">
         <div class="proj-meta"><span class="proj-tag">Personal Branding</span><span class="proj-year">Self-built · 2026</span></div>
         <div class="proj-name">Personal Portfolio Website</div>
-        <div class="proj-desc">Designed and built a multi-page personal website from scratch to showcase my career, projects, and credentials. Includes scroll-based animations, filterable project cards, and a certifications tracker — with an AI Interview Mode.</div>
+        <div class="proj-desc">Designed and built a multi-page personal website from scratch to showcase my career, projects, and credentials. Includes scroll-based animations, filterable project cards, and a certifications tracker — with an AI Interview Mode coming soon.</div>
         <div class="proj-stats">
           <div class="p-stat"><div class="p-n">4</div><div class="p-l">Pages built</div></div>
           <div class="p-stat"><div class="p-n">0</div><div class="p-l">Frameworks used</div></div>
@@ -163,35 +158,37 @@ footer{background:var(--ink);color:rgba(255,255,255,.3);padding:32px 72px;displa
         </div>
       </div>
     </div>
-    
-    <div class="proj-item featured rv d1" data-cat="individual">
-      <div class="proj-visual v1">💻</div>
+
+    <div class="proj-item rv d2" data-cat="individual">
+      <div class="proj-visual" style="background:linear-gradient(135deg,#0d2030,#0a4a6e);">🤖</div>
       <div class="proj-body">
-        <div class="proj-meta"><span class="proj-tag">Individual Project</span><span class="proj-year">Self · 2024-Present</span></div>
-        <div class="proj-name">Language Translation Overlay for Desktop</div>
-        <div class="proj-desc">Created Language Translation app that translates over the screen audio onto a rolling on-screen text box. Allowable for all languages and export function to save Translated Transcript</div>
+        <div class="proj-meta"><span class="proj-tag">AI & Automation</span><span class="proj-year">Self · 2026</span></div>
+        <div class="proj-name">"Interview Me" Agent</div>
+        <div class="proj-desc">Recreated virtual self as an AI agent available for interviewing anytime. Recruiters can ask it questions and get answers grounded in my real background, experience, and thinking — any time zone, no scheduling required.</div>
         <div class="proj-stats">
-          <div class="p-stat"><div class="p-n">All</div><div class="p-l">Major languages</div></div>
-          <div class="p-stat"><div class="p-n">AI Assisted</div><div class="p-l">Human vision and guidance</div></div>
-          <div class="p-stat"><div class="p-n">Fast</div><div class="p-l">Near real time translation to keep up with context</div></div>
+          <div class="p-stat"><div class="p-n">24/7</div><div class="p-l">Available to recruiters</div></div>
+          <div class="p-stat"><div class="p-n">AI</div><div class="p-l">Powered by Claude</div></div>
+          <div class="p-stat"><div class="p-n">1:1</div><div class="p-l">Personalized to my background</div></div>
         </div>
       </div>
     </div>
 
-    <div class="proj-item featured rv d1" data-cat="individual">
-      <div class="proj-visual v1">🤖</div>
+    <div class="proj-item featured rv d3" data-cat="individual">
+      <div class="proj-visual v1">💻</div>
       <div class="proj-body">
-        <div class="proj-meta"><span class="proj-tag">Individual Project</span><span class="proj-year">Self · 2024-Present</span></div>
-        <div class="proj-name">"Interview Me" Agent</div>
-        <div class="proj-desc">Recreated virtual self as an agent available for interviewing anytime. </div>
+        <div class="proj-meta"><span class="proj-tag">AI & Automation</span><span class="proj-year">Self · 2024 – Present</span></div>
+        <div class="proj-name">Language Translation Overlay for Desktop</div>
+        <div class="proj-desc">Built a desktop application that listens to screen audio and displays a rolling real-time translation as an on-screen overlay. Supports all major languages and includes an export function to save the full translated transcript. Designed for accessibility, live meetings, and multilingual content consumption.</div>
         <div class="proj-stats">
-          <div class="p-stat"><div class="p-n">24/7</div><div class="p-l">Available to recruiters</div></div>
-          <div class="p-stat"><div class="p-n">AI</div><div class="p-l">Powered by Claude</div></div>
-          <div class="p-stat"><div class="p-n">1:1</div><div class="p-l">Personalized to my background</div></div></div></div>
+          <div class="p-stat"><div class="p-n">All</div><div class="p-l">Major languages</div></div>
+          <div class="p-stat"><div class="p-n">Real-time</div><div class="p-l">Near-instant translation</div></div>
+          <div class="p-stat"><div class="p-n">Export</div><div class="p-l">Full transcript save</div></div>
         </div>
       </div>
     </div>
-    
+
+    <!-- AT&T -->
+
     <div class="proj-item featured rv d1" data-cat="product">
       <div class="proj-visual v1">📡</div>
       <div class="proj-body">
@@ -245,7 +242,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.3);padding:32px 72px;displa
     </div>
 
     <div class="proj-item rv d2" data-cat="engineering">
-      <div class="proj-visual v5">🌐</div>
+      <div class="proj-visual v5">🌍</div>
       <div class="proj-body">
         <div class="proj-meta"><span class="proj-tag">Engineering</span><span class="proj-year">AT&T · 2015–2017</span></div>
         <div class="proj-name">Fiber Network Expansion Planning</div>
@@ -275,7 +272,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.3);padding:32px 72px;displa
 </footer>
 
 <script>
-// CURSOR
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
 let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
@@ -285,20 +281,18 @@ document.querySelectorAll('a,button,.proj-item').forEach(el=>{
   el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='38px';ring.style.height='38px';});
 });
 
-// FILTER
 document.querySelectorAll('.f-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     document.querySelectorAll('.f-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
     const f=tab.dataset.filter;
     document.querySelectorAll('.proj-item[data-cat]').forEach(item=>{
-      if(f==='all'||item.dataset.cat===f){ item.classList.remove('hidden'); }
-      else { item.classList.add('hidden'); }
+      if(f==='all'||item.dataset.cat===f){item.classList.remove('hidden');}
+      else{item.classList.add('hidden');}
     });
   });
 });
 
-// REVEAL
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 </script>
